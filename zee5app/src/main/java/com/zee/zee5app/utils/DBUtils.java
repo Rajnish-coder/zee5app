@@ -15,20 +15,20 @@ import com.zee.zee5app.exceptions.UnableToGenerateIdException;
 
 public class DBUtils {
 
-	private DBUtils() {
-		// TODO Auto-generated constructor stub
-	}
-
-	private static DBUtils dbUtils;
-
-	public static DBUtils getInstance() {
-		if (dbUtils == null) {
-			dbUtils = new DBUtils();
-		}
-
-		return dbUtils;
-
-	}
+//	private DBUtils() {
+//		// TODO Auto-generated constructor stub
+//	}
+//
+//	private static DBUtils dbUtils;
+//
+//	public static DBUtils getInstance() {
+//		if (dbUtils == null) {
+//			dbUtils = new DBUtils();
+//		}
+//
+//		return dbUtils;
+//
+//	}
 	
 	public Connection getConnection()
 	{
@@ -92,11 +92,13 @@ public class DBUtils {
 		connection = this.getConnection();
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		int id = 0;
+		int id = 0,temp;
 		String query = "select id from useridgenerator";
 		String updateIdStatement = "update useridgenerator set id=?";
 		String newId = null;
+		String zeros = "0000000000";
 		int updateResult = 0;
+		int length = 0,tempLength;
 		try {
 			preparedStatement = connection.prepareStatement(query);
 			resultSet = preparedStatement.executeQuery();
@@ -106,7 +108,19 @@ public class DBUtils {
 				// then increment the number(id which is retrieved from db)
 				// then take first char from firstname and lastname
 				++id;
-				newId = firstname.charAt(0)+ "" + lastname.charAt(0) + "" + id;
+				temp=id;
+				tempLength = 0;
+				while(temp>0)
+				{
+					temp/=10;
+					tempLength++;
+				}
+				if(tempLength>length)
+				{
+					length = tempLength;
+					zeros = zeros.substring(0,zeros.length()-String.valueOf(id).length());
+				}
+				newId = firstname.charAt(0)+ "" + lastname.charAt(0) + "" + zeros + ""+id;
 				System.out.println(newId);
 				preparedStatement = connection.prepareStatement(updateIdStatement);
 				preparedStatement.setInt(1, id);
@@ -190,14 +204,14 @@ public class DBUtils {
 	
 	public static void main(String[] args)
 	{
-		String result = null;
-		try {
-			result = DBUtils.getInstance().userIdGenerator("rajnish","shonkhia");
-		} catch (UnableToGenerateIdException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println(result);
+//		String result = null;
+//		try {
+//			result = DBUtils.getInstance().userIdGenerator("rajnish","shonkhia");
+//		} catch (UnableToGenerateIdException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		System.out.println(result);
 	}
 	
 	

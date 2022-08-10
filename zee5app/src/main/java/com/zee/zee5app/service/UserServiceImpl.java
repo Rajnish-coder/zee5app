@@ -12,24 +12,24 @@ import com.zee.zee5app.repos.UserRepoImpl;
 
 public class UserServiceImpl implements UserService {
 	
-	private UserServiceImpl()
-	{
-		
-	}
+//	private UserServiceImpl()
+//	{
+//		
+//	}
+//	
+//	private static UserServiceImpl userService;
+//	
+//	public static UserServiceImpl getInstance()
+//	{
+//		if(userService == null)
+//		{
+//			userService = new UserServiceImpl();
+//		}
+//		
+//		return userService;
+//	}
 	
-	private static UserServiceImpl userService;
-	
-	public static UserServiceImpl getInstance()
-	{
-		if(userService == null)
-		{
-			userService = new UserServiceImpl();
-		}
-		
-		return userService;
-	}
-	
-	private UserRepo repo = UserRepoImpl.getInstance();
+	private UserRepo repo;
 	
 	public User insertUser(User user) throws UnableToGenerateIdException
 	{

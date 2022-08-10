@@ -71,7 +71,7 @@ public class Exception {
 //		int c = b;       // b.intValue()
 //		System.out.println(c);
 
-		UserService userService =  UserServiceImpl.getInstance();
+//		UserService userService =  UserServiceImpl.getInstance();
 //		
 //		try {
 //			User user = userService.insertUser(new User("abhi","chivate","raj13@gmail.com",LocalDate.now(),LocalDate.now(),true));
@@ -101,32 +101,32 @@ public class Exception {
 //			System.out.println(user2);
 //		}
 		
-		MovieService movieService = MovieServiceImpl.getInstance();
-		Genres genre = Genres.COMEDY;
-		String[] actors = {"a","b","c"};
-		String[] languages = {Languages.BHOJPURI.name(),Languages.ENGLISH.name(),
-	              Languages.HINDI.name()};
-		try {
-			Movie m = movieService.
-					insertMovie(new Movie(actors,"ab",
-							"ab",genre,"ab",languages,2.20f,"C:\\Users\\rajnish.shonkhia\\Downloads\\BRAHMĀSTRA.mp4"));
-			System.out.println(m);
-		} catch (javax.naming.InvalidNameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidIdException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidLengthException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnableToGenerateIdException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		MovieService movieService = MovieServiceImpl.getInstance();
+//		Genres genre = Genres.COMEDY;
+//		String[] actors = {"a","b","c"};
+//		String[] languages = {Languages.BHOJPURI.name(),Languages.ENGLISH.name(),
+//	              Languages.HINDI.name()};
+//		try {
+//			Movie m = movieService.
+//					insertMovie(new Movie(actors,"ab",
+//							"ab",genre,"ab",languages,2.20f,"C:\\Users\\rajnish.shonkhia\\Downloads\\BRAHMĀSTRA.mp4"));
+//			System.out.println(m);
+//		} catch (javax.naming.InvalidNameException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (InvalidIdException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (InvalidLengthException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (UnableToGenerateIdException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 //		Optional<List<Movie>> optional = movieService.getAllMovies();
 //		List<Movie> m = optional.get();
@@ -171,13 +171,16 @@ public class Exception {
 //			e.printStackTrace();
 //		}
 //		
-//		Optional<Movie[]> movie_all = movieService.getAllMoviesByGenre("COMEDY");
+//		Optional<Movie[]> movie_all = movieService.getAllMoviesByName("hulk");
 //		Movie[] movies = movie_all.get();
 //		
 //		for (Movie m : movies) {
 //			System.out.println(m);
 //			
 //		}
+		
+//		Optional<Movie> m = movieService.getMovieByMovieId("A1001");
+//		System.out.println(m.get());
 		
 //		try {
 //			Optional<Movie> update = movieService.updateMovie("a10001",new Movie("a10001",actors,"spider-man","a",g,"a",lang,5.00f));
@@ -192,16 +195,18 @@ public class Exception {
 //			e.printStackTrace();
 //		}
 		
-//		movie_all = movieService.getAllMovies();
+//		Optional<List<Movie>> op = null;
+//		op = movieService.getAllMovies();
 //		
-//		Movie[] m = movie_all.get();
+//	    List<Movie> m = op.get();
 //		
 //		for (Movie movie : m) {
 //			System.out.println(movie);
 //		}
 		
 //		try {
-//			String deleteResult = movieService.deleteMovieByMovieId("a10001");
+//			String deleteResult = movieService.deleteMovieByMovieId("A1001");
+//			System.out.println(deleteResult);
 //		} catch (NoDataFoundException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();

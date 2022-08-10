@@ -16,20 +16,20 @@ import com.zee.zee5app.utils.DBUtils;
 
 public class UserRepoImpl implements UserRepo {
 
-	private DBUtils dbUtils = DBUtils.getInstance();
+	private DBUtils dbUtils;
 	
-	private UserRepoImpl()
-	{
-		
-	}
-	private static UserRepoImpl userRepoImpl;
-	
-	public static UserRepoImpl getInstance()
-	{
-		if(userRepoImpl == null)
-			userRepoImpl = new UserRepoImpl();
-		return userRepoImpl;
-	}
+//	private UserRepoImpl()
+//	{
+//		
+//	}
+//	private static UserRepoImpl userRepoImpl;
+//	
+//	public static UserRepoImpl getInstance()
+//	{
+//		if(userRepoImpl == null)
+//			userRepoImpl = new UserRepoImpl();
+//		return userRepoImpl;
+//	}
 	@Override
 	public User insertUser(User user) throws UnableToGenerateIdException {
 		// connection object

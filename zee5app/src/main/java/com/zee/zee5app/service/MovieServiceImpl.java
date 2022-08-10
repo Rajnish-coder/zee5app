@@ -18,24 +18,24 @@ import com.zee.zee5app.repos.MovieRepositoryImpl;
 
 public class MovieServiceImpl implements MovieService {
 
-	private MovieServiceImpl()
-	{
-		
-	}
+//	private MovieServiceImpl()
+//	{
+//		
+//	}
+//	
+//	private static MovieService movieService;
+//	
+//	public static MovieService getInstance()
+//	{
+//		if(movieService == null)
+//		{
+//			movieService = new MovieServiceImpl();
+//		}
+//		
+//		return movieService;
+//	}
 	
-	private static MovieService movieService;
-	
-	public static MovieService getInstance()
-	{
-		if(movieService == null)
-		{
-			movieService = new MovieServiceImpl();
-		}
-		
-		return movieService;
-	}
-	
-	private MovieRepository movieRepository = MovieRepositoryImpl.getInstance();
+	private MovieRepository movieRepository;
 	@Override
 	public Movie insertMovie(Movie movie) throws UnableToGenerateIdException, FileNotFoundException {
 	

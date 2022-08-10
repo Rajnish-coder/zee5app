@@ -24,19 +24,19 @@ import com.zee.zee5app.utils.DBUtils;
 
 public class MovieRepositoryImpl implements MovieRepository {
 
-	private DBUtils dbUtils = DBUtils.getInstance();
-	private MovieRepositoryImpl() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	private static MovieRepositoryImpl movieRepositoryImpl;
-	
-	public static MovieRepositoryImpl getInstance()
-	{
-		if(movieRepositoryImpl == null)
-			movieRepositoryImpl = new MovieRepositoryImpl();
-		return movieRepositoryImpl;
-	}
+	private DBUtils dbUtils;
+//	private MovieRepositoryImpl() {
+//		// TODO Auto-generated constructor stub
+//	}
+//	
+//	private static MovieRepositoryImpl movieRepositoryImpl;
+//	
+//	public static MovieRepositoryImpl getInstance()
+//	{
+//		if(movieRepositoryImpl == null)
+//			movieRepositoryImpl = new MovieRepositoryImpl();
+//		return movieRepositoryImpl;
+//	}
 	@Override
 	public Movie insertMovie(Movie movie) throws UnableToGenerateIdException {
 		// TODO Auto-generated method stub
@@ -107,6 +107,9 @@ public class MovieRepositoryImpl implements MovieRepository {
 			String[] languages = movie.getLanguages();
 			String lang_name = null;
 			lang_name = String.join(",", languages);
+			preparedStatement.setString(7, lang_name);
+			preparedStatement.setFloat(8, movie.getMovieLength());
+			preparedStatement.setString(9, movie.getTrailer1());
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -153,8 +156,7 @@ public class MovieRepositoryImpl implements MovieRepository {
 		PreparedStatement preparedStatement = null;
 		connection = dbUtils.getConnection();
 		String query = "select * from movies";
-		ResultSet resultSet;
-		List<Movie> movies = new ArrayList<>();
+		ResultSet resultSet = null;;
 		
 		try {
 			preparedStatement = connection.prepareStatement(query);
@@ -217,12 +219,136 @@ public class MovieRepositoryImpl implements MovieRepository {
 	@Override
 	public Optional<Movie[]> getAllMoviesByGenre(String genre) {
 		// TODO Auto-generated method stub
+		Connection connection = null;
+		connection = dbUtils.getConnection();
+		PreparedStatement preparedStatement = null;
+		String query = "select * from movies where genre=?";
+		ResultSet resultSet = null;
+		List<Movie> movies1 = new ArrayList<>();
+		
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, genre);
+			resultSet = preparedStatement.executeQuery();
+			while(resultSet.next())
+			{
+				Movie m = new Movie();
+				try {
+					m.setMovieId(resultSet.getString("movieid"));
+					List<String> s = new ArrayList<>();
+					StringTokenizer st = new StringTokenizer(resultSet.getString("actors"),",");
+					while(st.hasMoreElements())
+					{
+						s.add(st.nextToken());
+					}
+					
+					String[] actors = new String[s.size()];
+					actors = s.toArray(actors);
+					m.setActors(actors);
+					m.setMovieName(resultSet.getString("moviename"));
+					m.setDirector(resultSet.getString("director"));
+					m.setGenre(Genres.valueOf(resultSet.getString("genre")));
+					m.setProduction(resultSet.getString("production"));
+					st = new StringTokenizer(resultSet.getString("languages"),",");
+					s.clear();
+					while(st.hasMoreElements())
+					{
+						s.add(st.nextToken());
+					}
+					String[] lang = new String[s.size()];
+					lang = s.toArray(lang);
+					m.setLanguages(lang);
+					m.setMovieLength(resultSet.getFloat("movielength"));
+					m.setTrailer1(resultSet.getString("trailer"));
+					movies1.add(m);
+				} catch (InvalidIdException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvalidNameException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvalidLengthException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			Movie[] m1 = new Movie[movies1.size()];
+			m1 = movies1.toArray(m1);
+			return Optional.of(m1);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return Optional.empty();
 	}
 
 	@Override
 	public Optional<Movie[]> getAllMoviesByName(String movieName) {
 		// TODO Auto-generated method stub
+		Connection connection = null;
+		connection = dbUtils.getConnection();
+		PreparedStatement preparedStatement = null;
+		String query = "select * from movies where movieName=?";
+		ResultSet resultSet = null;
+		List<Movie> movies1 = new ArrayList<>();
+		
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, movieName);
+			resultSet = preparedStatement.executeQuery();
+			while(resultSet.next())
+			{
+				Movie m = new Movie();
+				try {
+					m.setMovieId(resultSet.getString("movieid"));
+					List<String> s = new ArrayList<>();
+					StringTokenizer st = new StringTokenizer(resultSet.getString("actors"),",");
+					while(st.hasMoreElements())
+					{
+						s.add(st.nextToken());
+					}
+					
+					String[] actors = new String[s.size()];
+					actors = s.toArray(actors);
+					m.setActors(actors);
+					m.setMovieName(resultSet.getString("moviename"));
+					m.setDirector(resultSet.getString("director"));
+					m.setGenre(Genres.valueOf(resultSet.getString("genre")));
+					m.setProduction(resultSet.getString("production"));
+					st = new StringTokenizer(resultSet.getString("languages"),",");
+					s.clear();
+					while(st.hasMoreElements())
+					{
+						s.add(st.nextToken());
+					}
+					String[] lang = new String[s.size()];
+					lang = s.toArray(lang);
+					m.setLanguages(lang);
+					m.setMovieLength(resultSet.getFloat("movielength"));
+					m.setTrailer1(resultSet.getString("trailer"));
+					movies1.add(m);
+				} catch (InvalidIdException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvalidNameException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvalidLengthException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			Movie[] m1 = new Movie[movies1.size()];
+			m1 = movies1.toArray(m1);
+			return Optional.of(m1);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return Optional.empty();
 	}
 
@@ -301,6 +427,65 @@ public class MovieRepositoryImpl implements MovieRepository {
 	@Override
 	public List<Movie> findByOrderByMovieNameDsc() {
 		// TODO Auto-generated method stub
+		Connection connection = null;
+		connection = dbUtils.getConnection();
+		PreparedStatement preparedStatement = null;
+		String query = "select * from movies order by moviename desc";
+		ResultSet resultSet = null;
+        List<Movie> movies1 = new ArrayList<>();
+		
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			resultSet = preparedStatement.executeQuery();
+			while(resultSet.next())
+			{
+				Movie m = new Movie();
+				try {
+					m.setMovieId(resultSet.getString("movieid"));
+					List<String> s = new ArrayList<>();
+					StringTokenizer st = new StringTokenizer(resultSet.getString("actors"),",");
+					while(st.hasMoreElements())
+					{
+						s.add(st.nextToken());
+					}
+					
+					String[] actors = new String[s.size()];
+					actors = s.toArray(actors);
+					m.setActors(actors);
+					m.setMovieName(resultSet.getString("moviename"));
+					m.setDirector(resultSet.getString("director"));
+					m.setGenre(Genres.valueOf(resultSet.getString("genre")));
+					m.setProduction(resultSet.getString("production"));
+					st = new StringTokenizer(resultSet.getString("languages"),",");
+					s.clear();
+					while(st.hasMoreElements())
+					{
+						s.add(st.nextToken());
+					}
+					String[] lang = new String[s.size()];
+					lang = s.toArray(lang);
+					m.setLanguages(lang);
+					m.setMovieLength(resultSet.getFloat("movielength"));
+					m.setTrailer1(resultSet.getString("trailer"));
+					movies1.add(m);
+				} catch (InvalidIdException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvalidNameException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvalidLengthException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			return movies1;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 
