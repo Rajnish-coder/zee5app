@@ -18,7 +18,7 @@ public class WebSeries {
     private Genres genre;
     private String production;
     private String languages[];
-    private float webSeriessLength;
+    private float webSeriesLength;
     private String trailer1;
     //private byte[] trailer2;
     
@@ -50,8 +50,8 @@ public class WebSeries {
 		this.languages = languages;
 	}
 	
-	public void setWebSeriessLength(float webSeriessLength) {
-		this.webSeriessLength = webSeriessLength;
+	public void setWebSeriesLength(float webSeriesLength) {
+		this.webSeriesLength = webSeriesLength;
 	}
 	
 	public void setTrailer1(String trailer1) {

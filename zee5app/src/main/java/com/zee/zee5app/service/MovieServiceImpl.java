@@ -10,12 +10,16 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.zee.zee5app.dto.Movie;
 import com.zee.zee5app.exceptions.NoDataFoundException;
 import com.zee.zee5app.exceptions.UnableToGenerateIdException;
 import com.zee.zee5app.repos.MovieRepository;
 import com.zee.zee5app.repos.MovieRepositoryImpl;
 
+@Service
 public class MovieServiceImpl implements MovieService {
 
 //	private MovieServiceImpl()
@@ -35,6 +39,7 @@ public class MovieServiceImpl implements MovieService {
 //		return movieService;
 //	}
 	
+	@Autowired
 	private MovieRepository movieRepository;
 	@Override
 	public Movie insertMovie(Movie movie) throws UnableToGenerateIdException, FileNotFoundException {

@@ -3,6 +3,10 @@ package com.zee.zee5app.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+
 import com.zee.zee5app.dto.User;
 import com.zee.zee5app.exceptions.NoDataFoundException;
 import com.zee.zee5app.exceptions.UnableToGenerateIdException;
@@ -10,6 +14,8 @@ import com.zee.zee5app.repos.UserRepo;
 import com.zee.zee5app.repos.UserRepoImpl;
 import com.zee.zee5app.repos.UserRepoImpl;
 
+
+@Service
 public class UserServiceImpl implements UserService {
 	
 //	private UserServiceImpl()
@@ -29,7 +35,9 @@ public class UserServiceImpl implements UserService {
 //		return userService;
 //	}
 	
+	@Autowired
 	private UserRepo repo;
+
 	
 	public User insertUser(User user) throws UnableToGenerateIdException
 	{

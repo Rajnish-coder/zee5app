@@ -11,8 +11,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import org.springframework.stereotype.Component;
+
 import com.zee.zee5app.exceptions.UnableToGenerateIdException;
 
+@Component
 public class DBUtils {
 
 //	private DBUtils() {
@@ -120,7 +123,7 @@ public class DBUtils {
 					length = tempLength;
 					zeros = zeros.substring(0,zeros.length()-String.valueOf(id).length());
 				}
-				newId = firstname.charAt(0)+ "" + lastname.charAt(0) + "" + zeros + ""+id;
+				newId = firstname.charAt(0)+ "" + lastname.charAt(0) +id;
 				System.out.println(newId);
 				preparedStatement = connection.prepareStatement(updateIdStatement);
 				preparedStatement.setInt(1, id);
@@ -173,6 +176,59 @@ public class DBUtils {
 				// then take first char from firstname and lastname
 				++id;
 				newId = movieName.charAt(0)+ "" + movieName.charAt(1) + "" + id;
+				System.out.println(newId);
+				preparedStatement = connection.prepareStatement(updateIdStatement);
+				preparedStatement.setInt(1, id);
+				updateResult = preparedStatement.executeUpdate();
+				if(updateResult == 0)
+				{
+					throw new UnableToGenerateIdException("unable to generate id");
+				}
+				
+				
+				return newId;
+			}
+			
+	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new UnableToGenerateIdException("unable to generate id" + e.getMessage());
+			
+		}
+		finally {
+			this.closeConnection(connection);
+		}
+		
+		return null;
+		// then concat and return
+		
+	}
+	
+	
+	public String webSeriesIdGenerator(String webSeriesName) throws UnableToGenerateIdException
+	{
+		// it is responsible to generate userid for user entity
+		// first retrieve the value(db stored value from idgen table)
+		Connection connection = null;
+		connection = this.getConnection();
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		int id = 0;
+		String query = "select id from webseriesidgenerator";
+		String updateIdStatement = "update webseriesidgenerator set id=?";
+		String newId = null;
+		int updateResult = 0;
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			resultSet = preparedStatement.executeQuery();
+			if(resultSet.next())
+			{
+				id = resultSet.getInt("id");
+				// then increment the number(id which is retrieved from db)
+				// then take first char from firstname and lastname
+				++id;
+				newId = webSeriesName.charAt(0)+ "" + webSeriesName.charAt(1) + "" + id;
 				System.out.println(newId);
 				preparedStatement = connection.prepareStatement(updateIdStatement);
 				preparedStatement.setInt(1, id);
