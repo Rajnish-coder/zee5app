@@ -21,11 +21,30 @@ public class WebSeries {
     private float webSeriesLength;
     private String trailer1;
     //private byte[] trailer2;
+	public WebSeries(String[] actors, String webSeriesName, String director, Genres genre,
+			String production, String[] languages, float webSeriesLength, String trailer1) {
+		super();
+		this.actors = actors;
+		this.webSeriesName = webSeriesName;
+		this.director = director;
+		this.genre = genre;
+		this.production = production;
+		this.languages = languages;
+		this.webSeriesLength = webSeriesLength;
+		this.trailer1 = trailer1;
+	}
+	
+	
+    
+    public WebSeries() {
+		// TODO Auto-generated constructor stub
+	}
+    
     
 	public void setWebSeriesId(String webSeriesId) {
 		this.webSeriesId = webSeriesId;
 	}
-	
+//	
 	public void setActors(String[] actors) {
 		this.actors = actors;
 	}

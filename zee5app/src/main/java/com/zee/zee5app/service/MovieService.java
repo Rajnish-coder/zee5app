@@ -4,10 +4,13 @@ import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.zee.zee5app.dto.Movie;
 import com.zee.zee5app.exceptions.NoDataFoundException;
 import com.zee.zee5app.exceptions.UnableToGenerateIdException;
 
+@Service
 public interface MovieService {
   
 	public Movie insertMovie(Movie movie) throws UnableToGenerateIdException, FileNotFoundException;

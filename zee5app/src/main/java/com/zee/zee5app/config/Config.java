@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
@@ -16,6 +17,9 @@ import org.springframework.core.env.Environment;
 @Configuration
 // The Config file will hold the common useful information. So we need only one copy
 // of all objects inside this file. Hence, use @Bean
+
+@Import(Config2.class)
+
 // scanning right from the base package and finds out all annotations.
 @ComponentScan("com.zee.zee5app")
 

@@ -101,9 +101,9 @@ public class MovieRepositoryImpl implements MovieRepository {
 		// TODO Auto-generated method stub
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		String query = "update movie set movieid=?,actors=?,moviename=?,director=?,"
+		String query = "update movies set movieid=?,actors=?,moviename=?,director=?,"
 				+ "genre=?,production=?,languages=?,movielength=?,trailer=? where"
-				+ "movieid=?";
+				+ " movieid=?";
 		try {
 			connection = dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(query);

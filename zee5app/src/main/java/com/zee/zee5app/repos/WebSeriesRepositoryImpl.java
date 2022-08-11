@@ -39,7 +39,7 @@ public class WebSeriesRepositoryImpl implements WebSeriesRepository {
 		// TODO Auto-generated method stub
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		String insert = "insert into webSeries "
+		String insert = "insert into webseries "
 				+ "(webseriesid,actors,webseriesname,director,genre,production,languages,webserieslength,trailer) "
 				+ "values(?,?,?,?,?,?,?,?,?)";
 		String[] actors = webSeries.getActors();
@@ -55,7 +55,7 @@ public class WebSeriesRepositoryImpl implements WebSeriesRepository {
 		try {
 			connection = dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(insert);
-			webSeriesId = dbUtils.webSeriesIdGenerator(webSeries.getWebSeriesId());
+			webSeriesId = dbUtils.webSeriesIdGenerator(webSeries.getWebSeriesName());
 			preparedStatement.setString(1, webSeriesId);
 			webSeries.setWebSeriesId(webSeriesId);
 			preparedStatement.setString(2, actor_name);
@@ -85,13 +85,13 @@ public class WebSeriesRepositoryImpl implements WebSeriesRepository {
 	}
 
 	@Override
-	public Optional<WebSeries> updateWebSeries(String webSeriesId, WebSeries webSeries) {
+	public Optional<WebSeries> updateWebSeries(String webSeriesId,WebSeries webSeries) {
 		// TODO Auto-generated method stub
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		String query = "update webSeries set webseriesid=?,actors=?,webseriesname=?,director=?,"
+		String query = "update webseries set webseriesid=?,actors=?,webseriesname=?,director=?,"
 				+ "genre=?,production=?,languages=?,webserieslength=?,trailer=? where"
-				+ "webseriesid=?";
+				+ " webseriesid=?";
 		String[] actors = webSeries.getActors();
 		String actor_name = null;
 		actor_name = String.join(",", actors);
@@ -100,7 +100,6 @@ public class WebSeriesRepositoryImpl implements WebSeriesRepository {
 		lang_name = String.join(",", languages);
 		Genres genres = webSeries.getGenre();
 		String genre_name = genres.name();
-		String webseriesId;
 		try {
 			connection = dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(query);
@@ -114,6 +113,7 @@ public class WebSeriesRepositoryImpl implements WebSeriesRepository {
 			preparedStatement.setString(7, lang_name);
 			preparedStatement.setFloat(8, webSeries.getWebSeriesLength());
 			preparedStatement.setString(9, webSeries.getTrailer1());
+			preparedStatement.setString(10, webSeriesId);
 			
 			int result = preparedStatement.executeUpdate();
 			if(result>0)
@@ -132,7 +132,7 @@ public class WebSeriesRepositoryImpl implements WebSeriesRepository {
 		// TODO Auto-generated method stub
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		String query = "delete from webSeries where webseriesid=?";
+		String query = "delete from webseries where webseriesid=?";
 		
 		try {
 			connection = dataSource.getConnection();
@@ -214,7 +214,7 @@ public class WebSeriesRepositoryImpl implements WebSeriesRepository {
 		// TODO Auto-generated method stub
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		String query = "select * from webSeries where genre=?";
+		String query = "select * from webseries where genre=?";
 		ResultSet resultSet = null;;
 		
 		try {
@@ -271,7 +271,7 @@ public class WebSeriesRepositoryImpl implements WebSeriesRepository {
 		// TODO Auto-generated method stub
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		String query = "select * from webSeries where webseriesname=?";
+		String query = "select * from webseries where webseriesname=?";
 		ResultSet resultSet = null;;
 		
 		try {
@@ -328,7 +328,7 @@ public class WebSeriesRepositoryImpl implements WebSeriesRepository {
 		// TODO Auto-generated method stub
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		String query = "select * from webSeries where webseriesid=?";
+		String query = "select * from webseries where webseriesid=?";
 		ResultSet resultSet = null;;
 		
 		try {
@@ -382,7 +382,7 @@ public class WebSeriesRepositoryImpl implements WebSeriesRepository {
 		// TODO Auto-generated method stub
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		String query = "select * from webSeries order by webseriesname desc";
+		String query = "select * from webseries order by webseriesname desc";
 		ResultSet resultSet = null;;
 		
 		try {
